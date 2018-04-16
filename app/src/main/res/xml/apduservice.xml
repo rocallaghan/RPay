@@ -1,0 +1,5 @@
+<host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/servicedesc"
+    android:requireDeviceUnlock="false" >
+
+</host-apdu-service>

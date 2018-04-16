@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="project.richard.richpay.ViewTransactionsActivity"
+    tools:showIn="@layout/activity_view_transactions">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+        <TableLayout android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TableRow style="@style/HeaderRow">
+
+                <TextView
+                    style="@style/HeaderText"
+                    android:layout_weight="1"
+                    android:text="Description" />
+                <TextView android:text="Amount"
+                    style="@style/HeaderText" />
+                <TextView android:text="Date/time"
+                    style="@style/HeaderText" />
+            </TableRow>
+            <TableRow style="@style/BodyRow">
+                <TextView android:text="Cell 1,1"
+                    android:layout_height="0dp"
+                    style="@style/BodyText" />
+                <TextView android:text="Cell 1,2"
+                    android:layout_height="0dp"
+                    style="@style/BodyText"
+                    android:layout_weight="1" />
+                <TextView android:text="Cell 1,3"
+                    android:layout_height="0dp"
+                    style="@style/BodyText" />
+            </TableRow>
+            .
+            .
+            .
+            <TableRow style="@style/BodyRow">
+                <TextView android:text="Cell 8,1"
+                    android:layout_height="0dp"
+                    style="@style/BodyText" />
+                <TextView android:text="Cell 8,2"
+                    android:layout_height="0dp"
+                    style="@style/BodyText"
+                    android:layout_weight="1" />
+                <TextView android:text="Cell 8,3"
+                    android:layout_height="0dp"
+                    style="@style/BodyText" />
+                <TextView android:text="Cell 8,4"
+                    android:layout_height="0dp"
+                    style="@style/BodyText" />
+            </TableRow>
+        </TableLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="401dp">
+
+            <TableLayout
+                android:id="@+id/main_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow style="@style/HeaderRow">
+
+                    <TextView
+                        style="@style/HeaderText"
+                        android:layout_height="0dp"
+                        android:text="Description" />
+
+                    <TextView
+                        style="@style/HeaderText"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Amount" />
+
+                    <TextView
+                        style="@style/HeaderText"
+                        android:layout_height="0dp"
+                        android:text="Date" />
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.richard.richpay.ViewTransactionsActivity"
+    android:background="@drawable/fadebackground">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/go_to_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pay" />
+            <Button
+                android:id="@+id/go_to_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account" />
+            <Button
+                android:id="@+id/go_to_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings" />
+        </GridLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/total_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Balance : "
+        android:layout_gravity="bottom"
+        android:textSize="35dp"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/test_trans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Add Transaction" />
+
+    <include layout="@layout/content_view_transactions" />
+
+
+</android.support.design.widget.CoordinatorLayout>
