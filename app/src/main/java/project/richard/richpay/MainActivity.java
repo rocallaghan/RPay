@@ -1,9 +1,12 @@
 package project.richard.richpay;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,36 +54,38 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        signOut = (Button) findViewById(R.id.sign_out);
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
 
-        Button gototransactions = (Button)findViewById(R.id.go_to_transactions);
-        gototransactions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ViewTransactionsActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-        Button gotoaccount = (Button)findViewById(R.id.go_to_account);
-        gotoaccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-                startActivity(intent);
-
-            }
-        });
+        BottomNavigationView bottomNavigationView= (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
 
 
-        Button setNdef = (Button) findViewById(R.id.set_ndef_button);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_transactions:
+                                Intent intent = new Intent(MainActivity.this, ViewTransactionsActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.action_account:
+                                Intent intent1 = new Intent(MainActivity.this, AccountActivity.class);
+                                startActivity(intent1);
+                                break;
+
+                            case R.id.action_settings:
+                                Intent intent2 = new Intent(MainActivity.this, SettingsPageActivity.class);
+                                startActivity(intent2);
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+
+
+
+        final Button setNdef = (Button) findViewById(R.id.set_ndef_button);
         setNdef.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View view) {
@@ -91,12 +96,13 @@ public class MainActivity extends AppCompatActivity {
                                            //
                                            // TODO: add validation
                                            //
-                                           String userid = user.getUid();
-                                           String test = userid;
+                                           String userid ="test";
+
 
                                            Intent intent = new Intent(view.getContext(), MyHostApduService.class);
-                                           intent.putExtra("ndefMessage", test);
+                                           intent.putExtra("ndefMessage", userid);
                                            startService(intent);
+                                           setNdef.setBackgroundResource(R.drawable.logoreadytouse);
                                        }
                                    }
         );
@@ -105,9 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     //sign out method
-    public void signOut() {
-        auth.signOut();
-    }
 
     @Override
     protected void onResume() {

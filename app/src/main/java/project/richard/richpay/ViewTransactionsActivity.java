@@ -1,20 +1,26 @@
 package project.richard.richpay;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +44,7 @@ public class ViewTransactionsActivity extends AppCompatActivity {
     private String allTransId;
     private String allTransInfo;
     private String allTransAmount;
+    private Long userBalance;
 
 
     @Override
@@ -82,27 +89,31 @@ public class ViewTransactionsActivity extends AppCompatActivity {
             }
         });
 
+        BottomNavigationView bottomNavigationView= (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_transactions:
+                                Intent intent = new Intent(ViewTransactionsActivity.this, ViewTransactionsActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.action_account:
+                                Intent intent1 = new Intent(ViewTransactionsActivity.this, AccountActivity.class);
+                                startActivity(intent1);
+                                break;
 
-        Button gotoaccount = (Button)findViewById(R.id.go_to_account);
-        gotoaccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ViewTransactionsActivity.this, AccountActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-
-        Button gotomain = (Button)findViewById(R.id.go_to_main);
-        gotomain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ViewTransactionsActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+                            case R.id.action_settings:
+                                Intent intent2 = new Intent(ViewTransactionsActivity.this, SettingsPageActivity.class);
+                                startActivity(intent2);
+                                break;
+                        }
+                        return true;
+                    }
+                });
 
         Button addtrans = (Button) findViewById(R.id.test_trans);
         addtrans.setOnClickListener(new View.OnClickListener() {
@@ -110,18 +121,39 @@ public class ViewTransactionsActivity extends AppCompatActivity {
                 String uniqueID = UUID.randomUUID().toString();
                 String today = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
                 String newchild = today + uniqueID;
-                Transaction trans = new Transaction(uniqueID, 20, "second added", today);
-                myRef.child("users").child(fuser.getUid()).child("transactions").child(newchild).setValue(trans);
+                Transaction trans = new Transaction(uniqueID, -20, "second added", today);
+                if(userBalance>=20) {
+                  Long newBalance = userBalance - 20;
+                  myRef.child("users").child(fuser.getUid()).child("transactions").child(newchild).setValue(trans);
+                  myRef.child("users").child(fuser.getUid()).child("balance").setValue(newBalance);
+                }
+                else
+                {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Funds too Low!";
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+            }
+        });
 
+        Button homebtn = (Button) findViewById(R.id.homebutton);
+        homebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ViewTransactionsActivity.this, MainActivity.class));
             }
         });
 
         myRef.child("users").child(fuser.getUid()).child("balance").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Long userBalance = (Long) dataSnapshot.getValue();
+                userBalance = (Long) dataSnapshot.getValue();
                 TextView balancetest = (TextView) findViewById(R.id.total_balance);
-                balancetest.setText("Current Balance: " + userBalance);;
+                balancetest.setText("Current Balance: €" + userBalance);
+                findViewById(R.id.test_trans).setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -135,7 +167,7 @@ public class ViewTransactionsActivity extends AppCompatActivity {
     public void CreateTable(String a, String b, String c){
             int count = 0;
             TableRow tr = new TableRow(this);
-            tr.setBackgroundColor(Color.GRAY);
+            tr.setBackgroundResource(R.color.black);
             tr.setId(100 + count);
             tr.setLayoutParams(new LayoutParams(
                     LayoutParams.FILL_PARENT,
@@ -146,12 +178,14 @@ public class ViewTransactionsActivity extends AppCompatActivity {
             labelinfo.setId(200 + count);
             labelinfo.setText(a + " ");
             labelinfo.setPadding(2, 0, 5, 0);
-            labelinfo.setTextColor(Color.WHITE);
+            int color = getResources().getColor(R.color.colorAccent);
+            labelinfo.setTextColor(color);
+            labelinfo.setPadding(10,0,20,0);
             tr.addView(labelinfo);
             TextView labelamount = new TextView(this);
             labelamount.setId(200 + count);
             labelamount.setText("€"+b);
-            labelamount.setTextColor(Color.WHITE);
+            labelamount.setTextColor(color);
             tr.addView(labelamount);
         TextView labeldate = new TextView(this);
         labeldate.setId(200 + count);

@@ -8,7 +8,11 @@
 
     <color name="colorAccent">#f2fe71</color>
 
+    <color name="orange">#ff9900</color>
+
     <color name="bg_login">#26ae90</color>
+
+    <color name="grey">#515A5A</color>
 
     <color name="bg_register">#2e3237</color>
 
@@ -16,9 +20,15 @@
 
     <color name="white">#ffffff</color>
 
-    <color name="input_login">#222222</color>
+    <color name="black">#000000</color>
 
-    <color name="input_login_hint">#999999</color>
+    <color name="red">#FF0000</color>
+
+    <color name="input_login">#ffffff</color>
+
+    <color name="transparent">#80000000</color>
+
+    <color name="input_login_hint">#ffffff</color>
 
     <color name="input_register">#888888</color>
 

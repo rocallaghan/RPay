@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_transactions"
+        android:enabled="true"
+        android:icon="@drawable/ic_swap_horiz_black_24dp"
+        android:title="transactions"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_account"
+        android:enabled="true"
+        android:icon="@drawable/ic_account_box_black_24dp"
+        android:title="account"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="settings"
+        app:showAsAction="ifRoom" />
+</menu>

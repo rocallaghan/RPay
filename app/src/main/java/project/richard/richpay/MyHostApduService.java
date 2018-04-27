@@ -130,18 +130,19 @@ public class MyHostApduService extends HostApduService {
 
             NDEF_URI_BYTES = NDEF_URI.toByteArray();
             NDEF_URI_LEN = BigInteger.valueOf(NDEF_URI_BYTES.length).toByteArray();
-
+            Log.i(TAG, "onDataChange: " + "my balance is " + NDEF_URI);
             Context context = getApplicationContext();
-            CharSequence text = "Your NDEF text has been set!";
+            CharSequence text = "Ready To Pay!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+
         }
 
         Log.i(TAG, "onStartCommand() | NDEF" + NDEF_URI.toString());
 
-        return 0;
+        return START_STICKY_COMPATIBILITY;
     }
 
     @Override
@@ -230,7 +231,7 @@ public class MyHostApduService extends HostApduService {
             Log.i(TAG, "NDEF_READ_BINARY_GET_NDEF triggered. Our Response: " + utils.bytesToHex(response));
 
             Context context = getApplicationContext();
-            CharSequence text = "NDEF text has been sent to the reader!";
+            CharSequence text = "Payment ready!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.setGravity(Gravity.CENTER, 0, 0);
