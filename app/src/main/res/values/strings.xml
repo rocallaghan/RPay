@@ -6,7 +6,9 @@
     <string name="title_activity_register">RegisterActivity</string>
 
     <string name="action_sign_in_short">Register</string>
-
+    <string name="service_name">CardEmulation Sample</string>
+    <string name="card_title">Sample Loyalty Card</string>
+    <string name="account_number">Account Number</string>
     <string name="email">Email</string>
 
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>

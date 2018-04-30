@@ -31,7 +31,6 @@ public class utils {
         return new String(hexChars);
     }
 
-
     public static boolean isEqual(byte[] a, byte[] b) {
         if (a.length != b.length) {
             return false;

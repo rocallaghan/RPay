@@ -158,6 +158,9 @@ public class SettingsPageActivity extends AppCompatActivity {
 
     public void signOut() {
         auth.signOut();
+        Intent intent = new Intent(SettingsPageActivity.this, LoginActivity.class);
+        startActivity(intent);
+
     }
 
     public void deleteAcccount(String userpassword) {

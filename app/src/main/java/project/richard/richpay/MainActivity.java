@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,11 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+    private CardEmulationFragment fragment;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            CardEmulationFragment fragment = new CardEmulationFragment();
+            transaction.replace(R.id.sample_content_fragment, fragment);
+            transaction.commit();
+
 
 
         //get firebase auth instance
@@ -41,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+        uid = user.getUid();
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -54,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+
 
         BottomNavigationView bottomNavigationView= (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -96,12 +108,9 @@ public class MainActivity extends AppCompatActivity {
                                            //
                                            // TODO: add validation
                                            //
-                                           String userid ="test";
-
-
-                                           Intent intent = new Intent(view.getContext(), MyHostApduService.class);
-                                           intent.putExtra("ndefMessage", userid);
-                                           startService(intent);
+                                           String userid = uid;
+                                           EditText e = findViewById(R.id.card_account_field);
+                                           e.setText(userid);
                                            setNdef.setBackgroundResource(R.drawable.logoreadytouse);
                                        }
                                    }
@@ -131,4 +140,5 @@ public class MainActivity extends AppCompatActivity {
             auth.removeAuthStateListener(authListener);
         }
     }
+
 }

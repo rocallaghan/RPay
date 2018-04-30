@@ -122,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:text="Balance : "
                 android:paddingLeft="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="bottom"
                 android:textSize="30dp"
                 android:textColor="@color/colorAccent"
@@ -130,15 +131,15 @@
 
         </LinearLayout>
 
-    <Button
-        android:visibility="gone"
-        android:id="@+id/test_trans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Test 20 Transaction"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="100dp"/>
+        <ProgressBar
+            android:id="@+id/loadingPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="143dp"
+            android:indeterminate="true" />
+
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"

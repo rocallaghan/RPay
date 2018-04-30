@@ -115,29 +115,6 @@ public class ViewTransactionsActivity extends AppCompatActivity {
                     }
                 });
 
-        Button addtrans = (Button) findViewById(R.id.test_trans);
-        addtrans.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String uniqueID = UUID.randomUUID().toString();
-                String today = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
-                String newchild = today + uniqueID;
-                Transaction trans = new Transaction(uniqueID, -20, "second added", today);
-                if(userBalance>=20) {
-                  Long newBalance = userBalance - 20;
-                  myRef.child("users").child(fuser.getUid()).child("transactions").child(newchild).setValue(trans);
-                  myRef.child("users").child(fuser.getUid()).child("balance").setValue(newBalance);
-                }
-                else
-                {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Funds too Low!";
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
-            }
-        });
 
         Button homebtn = (Button) findViewById(R.id.homebutton);
         homebtn.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +130,7 @@ public class ViewTransactionsActivity extends AppCompatActivity {
                 userBalance = (Long) dataSnapshot.getValue();
                 TextView balancetest = (TextView) findViewById(R.id.total_balance);
                 balancetest.setText("Current Balance: €" + userBalance);
-                findViewById(R.id.test_trans).setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -165,6 +142,7 @@ public class ViewTransactionsActivity extends AppCompatActivity {
     }
 
     public void CreateTable(String a, String b, String c){
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
             int count = 0;
             TableRow tr = new TableRow(this);
             tr.setBackgroundResource(R.color.black);
@@ -180,7 +158,7 @@ public class ViewTransactionsActivity extends AppCompatActivity {
             labelinfo.setPadding(2, 0, 5, 0);
             int color = getResources().getColor(R.color.colorAccent);
             labelinfo.setTextColor(color);
-            labelinfo.setPadding(10,0,20,0);
+            labelinfo.setPadding(10,0,30,0);
             tr.addView(labelinfo);
             TextView labelamount = new TextView(this);
             labelamount.setId(200 + count);
@@ -198,5 +176,6 @@ public class ViewTransactionsActivity extends AppCompatActivity {
                     LayoutParams.FILL_PARENT,
                     LayoutParams.WRAP_CONTENT));
             count++;
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
     }
 }

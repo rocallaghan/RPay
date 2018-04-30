@@ -9,6 +9,7 @@
     android:background="@drawable/darkfade">
 
     <RelativeLayout
+        android:id="@+id/main_fragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -34,7 +35,22 @@
             android:textColor="@color/colorAccent"
             android:layout_centerHorizontal="true"
             android:textSize="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/accountnfctext"/>
 
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/card_account_field"
+            android:width="360dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:textSize="42dp"
+            android:singleLine="true"
+            android:inputType="text" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -46,7 +62,14 @@
             app:itemTextColor="@color/white"
             app:menu="@menu/bottom_navigation_menu" />
 
+
     </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/sample_content_fragment"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0px" />
+
 
 
 </android.support.design.widget.CoordinatorLayout>
